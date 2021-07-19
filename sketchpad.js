@@ -1,16 +1,13 @@
-function createDiv(density) {
 
-}
 
 const sketchpad = document.querySelector('#sketchpad');
-let cells = 2;
-let ratio = (1/cells*100);
+let numCells = 30;
+let ratio = (1/numCells*100);
 
-// your javascript file
-sketchpad.setAttribute('style', `grid-template-rows: repeat(${cells},${ratio}%); grid-template-columns: repeat(${cells},${ratio}%);`)
+sketchpad.setAttribute('style', `grid-template-rows: repeat(${numCells},${ratio}%); grid-template-columns: repeat(${numCells},${ratio}%);`)
 
-for (let i = 0; i < cells; i++) {
-    for (let j = 0; j < cells; j++) {  
+for (let i = 0; i < numCells; i++) {
+    for (let j = 0; j < numCells; j++) {  
         const cell = document.createElement('div');
         cell.classList.add('cell');
         sketchpad.appendChild(cell);
@@ -18,6 +15,32 @@ for (let i = 0; i < cells; i++) {
     
 }
 
+const cells = document.querySelectorAll('.cell');
+cells.forEach(cell => cell.addEventListener('mouseover',colorCell))
+
+let mouseDown = false;
+
+const webpage= document.querySelector('body');
+webpage.addEventListener('mousedown',toggleMouseDown);
+webpage.addEventListener('mouseup',toggleMouseDown);
+webpage.addEventListener('mouseleave',toggleMouseDown);
 
 
-//contentdiv.setAttribute('style', 'border: 2px solid black; background: pink'); 
+
+function toggleMouseDown(e) {
+    if (mouseDown == false && e.type == "mousedown") {
+        mouseDown = true;
+    } else  {
+        mouseDown = false;
+    }
+}
+
+
+function colorCell(e) {
+    if (mouseDown)
+    e.target.classList.add("filled-cell");
+}
+
+
+  
+  
