@@ -64,6 +64,10 @@ function useButton(e) {
         if(rainbowTipActive == true) {
             toggleRainbowColor();
         }
+
+    } else if (e.target.type == "range") {
+        canvasSize = e.target.value;
+        setCanavasSize(canvasSize);
     }
 }
 
@@ -115,6 +119,9 @@ function setColor(e) {
 }
 
 function setCanavasSize(numCells) {
+    resetSketchpad();
+    sliderOutput.textContent = `${canvasSize} x ${canvasSize}`;
+
     let ratio = (1/numCells*100);
     const sketchpad = document.querySelector('#sketchpad');
     sketchpad.setAttribute('style', `grid-template-rows: repeat(${numCells},${ratio}%); grid-template-columns: repeat(${numCells},${ratio}%);`)
@@ -128,6 +135,11 @@ function setCanavasSize(numCells) {
         }   
     }
     cells = document.querySelectorAll('.cell');
+}
+
+function resetSketchpad() {
+    cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => cell.remove());
 }
 
 function highlight(e) {
@@ -196,10 +208,13 @@ colorWell.addEventListener("input", setColor, false);
 let sliderInput = document.querySelector("input");
 let sliderOutput = document.querySelector("#slider-output")
 
+sliderInput.addEventListener('input',useButton);
+
 sliderOutput.textContent = `${canvasSize} x ${canvasSize}`;
 
 
 setCanavasSize(canvasSize);
+
 
   
   
