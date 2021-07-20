@@ -33,8 +33,8 @@ function useButton(e) {
     }   
 }
 
-function setColor() {
-
+function setColor(e) {
+    activeColor = e.target.value;
 }
 
 function setCanavasSize(numCells) {
@@ -62,7 +62,7 @@ function highlight(e) {
 }
 
 function resetCanvas() {
-    cells.forEach(cell => cell.classList.remove("filled-cell"));
+    cells.forEach(cell => cell.style.backgroundColor = activeBackgroundColor);
 }
 
 function toggleMouseDown(e) {
@@ -100,6 +100,12 @@ const buttons = document.querySelectorAll('.button');
 buttons.forEach(button => button.addEventListener('click',useButton));
 buttons.forEach(button => button.addEventListener('mouseover',highlight));
 buttons.forEach(button => button.addEventListener('mouseleave',highlight));
+
+  const colorWell = document.querySelector("#colorWell");
+  colorWell.value = activeColor;
+  colorWell.addEventListener("input", setColor, false);
+  
+
 
 setCanavasSize(16);
 
