@@ -6,6 +6,7 @@ let activeBackgroundColor = "#fff"
 
 let rainbowTipActive = false;
 let activeRainbowTipColor = "red"
+let canvasSize = 16;
 
 function useButton(e) {    
     if (e.target.textContent == "Reset") {
@@ -40,7 +41,7 @@ function useButton(e) {
             toggleEraser();
         }
     
-    } else {
+    } else if (e.target.textContent == "Pencil")  {
         buttons.forEach(button => button.classList.remove("active"));
         e.target.classList.add("active");
         
@@ -51,7 +52,19 @@ function useButton(e) {
         if(rainbowTipActive == true) {
             toggleRainbowColor();
         }
-    }   
+
+    }   else if (e.target.textContent == "Reset")  {
+        buttons.forEach(button => button.classList.remove("active"));
+        e.target.classList.add("active");
+        
+        if(eraserActive == true) {
+            toggleEraser();
+        }
+        
+        if(rainbowTipActive == true) {
+            toggleRainbowColor();
+        }
+    }
 }
 
 function getRandomInt(max) {
@@ -118,7 +131,7 @@ function setCanavasSize(numCells) {
 }
 
 function highlight(e) {
-    if(e.target.className != "active" && e.type == "mouseover") {
+    if(e.target.className != "active" && e.target.className != "slider"  && e.type == "mouseover") {
         e.target.classList.add("hover");
     } else {
         e.target.classList.remove("hover");
@@ -176,13 +189,17 @@ buttons.forEach(button => button.addEventListener('click',useButton));
 buttons.forEach(button => button.addEventListener('mouseover',highlight));
 buttons.forEach(button => button.addEventListener('mouseleave',highlight));
 
-  const colorWell = document.querySelector("#colorWell");
-  colorWell.value = activeColor;
-  colorWell.addEventListener("input", setColor, false);
-  
+const colorWell = document.querySelector("#colorWell");
+colorWell.value = activeColor;
+colorWell.addEventListener("input", setColor, false);
+
+let sliderInput = document.querySelector("input");
+let sliderOutput = document.querySelector("#slider-output")
+
+sliderOutput.textContent = `${canvasSize} x ${canvasSize}`;
 
 
-setCanavasSize(16);
+setCanavasSize(canvasSize);
 
   
   
