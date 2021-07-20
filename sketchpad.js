@@ -1,6 +1,8 @@
 let mouseDown = false;
 let eraserActive = false;
 let cells;
+let activeColor = "#000";
+let activeBackgroundColor = "#fff"
 
 function useButton(e) {    
     if (e.target.textContent == "Reset") {
@@ -82,10 +84,11 @@ function toggleEraser() {
 function colorCell(e) {
     if (mouseDown && eraserActive == false) {
         e.target.classList.add("filled-cell");
+        e.target.style.backgroundColor = activeColor;
     } else if (mouseDown && eraserActive) {
         e.target.classList.remove("filled-cell");
-    }
-    
+        e.target.style.backgroundColor = activeBackgroundColor;
+    } 
 }
 
 const webpage= document.querySelector('body');
