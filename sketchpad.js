@@ -1,4 +1,5 @@
 let mouseDown = false;
+let eraserActive = false;
 let cells;
 
 function useButton(e) {    
@@ -15,10 +16,18 @@ function useButton(e) {
         setTimeout(function(){
             e.target.classList.remove("active-temp");
         }, 200); 
-         
+
+    } else if (e.target.textContent == "Eraser") {
+        toggleEraser();
+        buttons.forEach(button => button.classList.remove("active"));
+        e.target.classList.add("active");
+    
     } else {
-    buttons.forEach(button => button.classList.remove("active"));
-    e.target.classList.add("active");
+        buttons.forEach(button => button.classList.remove("active"));
+        e.target.classList.add("active");
+        if(eraserActive == true) {
+            toggleEraser();
+        }
     }   
 }
 
@@ -62,9 +71,21 @@ function toggleMouseDown(e) {
     }
 }
 
+function toggleEraser() {
+    if (eraserActive == false) {
+        eraserActive = true;
+    } else {
+        eraserActive = false;
+    }
+}
+
 function colorCell(e) {
-    if (mouseDown)
-    e.target.classList.add("filled-cell");
+    if (mouseDown && eraserActive == false) {
+        e.target.classList.add("filled-cell");
+    } else if (mouseDown && eraserActive) {
+        e.target.classList.remove("filled-cell");
+    }
+    
 }
 
 const webpage= document.querySelector('body');

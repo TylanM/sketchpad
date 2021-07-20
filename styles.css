@@ -1,6 +1,6 @@
 .cell {
     background-color: rgb(255, 255, 255);
-    border: black 0.25px solid;
+    border: rgb(22, 34, 34) 0.25px solid;
     padding: 0;
     margin: 0;
     user-select: none;
@@ -19,7 +19,6 @@ html {
     height: 100%;
     font-family: 'Courier New', Courier, monospace;
 }
-
 
 .button {
     margin: 1px 10px; 
@@ -58,8 +57,6 @@ button {
     background-color: #ededed
 }
 
-
-
 .hover {
     border: rgb(255, 251, 0) 2px solid;
     scale: 1.05;
@@ -83,23 +80,16 @@ button {
     scale: 0.98;  
 }
 
-/*
-.cell:hover {
-    background-color: teal;
-}
-*/
-
 .filled-cell {
-    background-color: rgb(197, 32, 68);
+    background-color: rgb(0, 0, 0);
 }
 
 #sketchpad {
-    border: red 1px solid;
+    border: darkslategray 1px solid;
     margin: auto;
     display: inline-grid;
     max-width: 400px;
     max-height: 400px;
     width: 300px;
     height: 300px;
-    
 }
