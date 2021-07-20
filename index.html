@@ -8,7 +8,24 @@
     <title>Sketchpad</title>
 </head>
 <body>
-    <div id="sketchpad"></div>
+    <div class="container-column">
+        <h1>Sketchpad-Plus</h1>
+        <div class="container-row background">
+                <div class="container-column">
+                    <button class="button active">Pencil</button>
+                    <input class="button" type="color" value="000000" id="colorWell">
+                    <button class="button">Eraser</button>
+                    <button class="button">Rainbow Tip</button>
+                    <button class="button">Resize</button>
+                    <button class="button">Reset</button>
+                </div>
+                <div class="container-column">
+                    <div id="sketchpad"></div>
+                </div>
+        </div>
+    </div>
+    
+    
     <script src="sketchpad.js"></script> 
 </body>
 </html>
