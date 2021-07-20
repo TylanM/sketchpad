@@ -4,6 +4,9 @@ let cells;
 let activeColor = "#000";
 let activeBackgroundColor = "#fff"
 
+let rainbowTipActive = false;
+let activeRainbowTipColor = "red"
+
 function useButton(e) {    
     if (e.target.textContent == "Reset") {
         resetCanvas();   
@@ -23,14 +26,75 @@ function useButton(e) {
         toggleEraser();
         buttons.forEach(button => button.classList.remove("active"));
         e.target.classList.add("active");
+        
+        if(rainbowTipActive == true) {
+            toggleRainbowColor();
+        }
+    
+    } else if (e.target.textContent == "Rainbow Tip") {
+        buttons.forEach(button => button.classList.remove("active"));
+        e.target.classList.add("active");
+        toggleRainbowColor()
+        
+        if(eraserActive == true) {
+            toggleEraser();
+        }
     
     } else {
         buttons.forEach(button => button.classList.remove("active"));
         e.target.classList.add("active");
+        
         if(eraserActive == true) {
             toggleEraser();
         }
+        
+        if(rainbowTipActive == true) {
+            toggleRainbowColor();
+        }
     }   
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+function setRainbowColor() {
+    let dominantPrimary = getRandomInt(3)
+    let dominantSecondary = getRandomInt(2) 
+    let r;
+    let g;
+    let b;
+
+    if (dominantPrimary == 0) {
+        r = 255;
+        if (dominantSecondary == 0) {
+            g = 0
+            b = getRandomInt(255);
+        } else {
+            b = 0
+            g = getRandomInt(255);
+        }
+    } else if (dominantPrimary == 1) {
+        b = 255;
+        if (dominantSecondary == 0) {
+            r = 0
+            g = getRandomInt(255);
+        } else {
+            g = 0
+            r = getRandomInt(255);
+        }
+    } else {
+        g = 255;
+        if (dominantSecondary == 0) {
+            r = 0
+            b = getRandomInt(255);
+        } else {
+            b = 0
+            r = getRandomInt(255);
+        }
+    }
+
+    activeRainbowTipColor = `rgb(${r}, ${g}, ${b})`;
 }
 
 function setColor(e) {
@@ -81,13 +145,24 @@ function toggleEraser() {
     }
 }
 
+function toggleRainbowColor() {
+    if (rainbowTipActive == false) {
+        rainbowTipActive = true;
+    } else {
+        rainbowTipActive = false;
+    }
+}
+
 function colorCell(e) {
-    if (mouseDown && eraserActive == false) {
+    if (mouseDown && eraserActive == false && rainbowTipActive == false) {
         e.target.classList.add("filled-cell");
         e.target.style.backgroundColor = activeColor;
     } else if (mouseDown && eraserActive) {
         e.target.classList.remove("filled-cell");
         e.target.style.backgroundColor = activeBackgroundColor;
+    } else if (mouseDown && rainbowTipActive) {
+        setRainbowColor();
+        e.target.style.backgroundColor = activeRainbowTipColor;
     } 
 }
 
